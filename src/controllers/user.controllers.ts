@@ -50,4 +50,13 @@ export async function signIn(req: Request, res: Response) {
   });
 };
 
+export async function logout(req: Request, res: Response) {
+  await User.findOneAndUpdate({ _id: req.user._id }, {$set: { token: "", tokenExp: ""}}, (err, doc) => {
+    if(err) return res.json({ success: false, err });
+    return res.status(HTTPStatus.OK).send({
+      success: true
+    });
+  });
+};
+
 
