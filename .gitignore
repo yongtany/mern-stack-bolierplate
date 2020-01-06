@@ -3,5 +3,6 @@ dist
 .cache
 node_modules
 build/
+src/config/dev.ts
 yarn-error.log
 yarn.lock
