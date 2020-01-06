@@ -1,22 +1,10 @@
 import bcrypt from "bcrypt";
-import mongoose, { Model, Schema, Document } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 
-const config = require("../config/keys");
-
-export interface UserDocument extends Document {
-  name: string,
-  email: string,
-  password: string,
-  username: string,
-  role: number;
-  image: string,
-  token: string;
-  tokenExp: number;
-  comparePassword: Function,
-  generateToken: Function,
-};
+import UserDocument from './user.document';
+const config = require("../../config/keys");
 
 export interface UserModel extends Model<UserDocument> {
     findByToken: Function
@@ -104,8 +92,6 @@ userSchema.statics.findByToken = function (token: string, cb: any) {
         })
     })
 }
-
-
 
 export const User: UserModel = mongoose.model<UserDocument, UserModel>("User", userSchema);
 

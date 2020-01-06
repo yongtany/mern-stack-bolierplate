@@ -2,7 +2,6 @@ dist
 .DS_Store
 .cache
 node_modules
-build/
-src/config/dev.ts
+server/config/dev.ts
 yarn-error.log
 yarn.lock

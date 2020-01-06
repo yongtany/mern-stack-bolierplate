@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { User, UserDocument } from '../models/user.model';
+import { User } from '../models/User/user.model';
+import UserDocument from '../models/User/user.document';
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
   let token = req.cookies.token;

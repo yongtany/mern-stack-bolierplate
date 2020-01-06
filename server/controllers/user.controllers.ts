@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import HTTPStatus from 'http-status';
 
-import { User } from '../models/user.model';
+import { User } from '../models/User/user.model';
 
 export function auth(req: Request, res: Response) {
   res.status(HTTPStatus.OK).json({
