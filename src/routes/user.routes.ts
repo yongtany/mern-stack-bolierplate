@@ -3,8 +3,11 @@ import validate from 'express-validation';
 
 import * as userControllers from '../controllers/user.controllers';
 import validations from '../validations/validations';
+import auth from '../middleware/auth';
 
 const router = Router();
+
+router.get('/auth', auth, userControllers.auth);
 
 router.post('/signup', 
   validate(validations.signUp), 
@@ -14,7 +17,8 @@ router.post('/signup',
 router.post('/signin',
   validate(validations.signIn),
   userControllers.signIn
-)
+);
+
 
 
 export default router;
