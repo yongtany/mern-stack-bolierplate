@@ -5,7 +5,6 @@ import RegisterPage from '../pages/RegisterPage';
 import LoginPage from '../pages/LoginPage';
 import LandingPage from '../pages/LandingPage';
 
-
 const App: React.FC = () => {
   return (
     <div className="App">
