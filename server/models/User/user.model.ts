@@ -1,13 +1,10 @@
-import bcrypt from "bcrypt";
 import mongoose, { Model, Schema } from "mongoose";
-import jwt from 'jsonwebtoken';
-import moment from 'moment';
-
 import UserDocument from './user.document';
+import jwt from 'jsonwebtoken';
 const config = require("../../config/keys");
 
 export interface UserModel extends Model<UserDocument> {
-    findByToken: Function
+
 }
 
 const userSchema = new Schema({
@@ -19,10 +16,6 @@ const userSchema = new Schema({
     type:String,
     trim:true,
     unique: 1 
-  },
-  password: {
-      type: String,
-      minlength: 5,
   },
   username: {
       type:String,
@@ -38,60 +31,33 @@ const userSchema = new Schema({
   },
   tokenExp :{
     type: Number
-  }
-})
-
-const saltRounds = 10;
-
-/** Password hashing & Signing Url middleware. */
-userSchema.pre("save", function save(next: any) {
-    var user = this as UserDocument;
-    if(user.isModified('password')){    
-      console.log('password changed')
-      bcrypt.genSalt(saltRounds, function(err, salt){
-          if(err) return next(err);
-  
-          bcrypt.hash(user.password, salt, function(err, hash){
-              if(err) return next(err);
-              user.password = hash; 
-              next();
-          })
-      })
-  } else {
-      next();
+  },
+  provider: {
+    type: String,
+    enum: ['LOCAL', 'GOOGLE', 'FACEBOOK']
   }
 });
 
-userSchema.methods.comparePassword = function(plainPassword: string, cb: any){
-  bcrypt.compare(plainPassword, this.password, function(err, isMatch: boolean){
-    if (err) return cb(err);
-    cb(null, isMatch)
-  })
-}
+userSchema.methods = {
+  toJSON() {
+    return {
+      _id: this._id,
+      email: this.email,
+      name: this.name,
+      username: this.username,
+      role: this.role,
+      image: this.image
+    };
+  },
 
-userSchema.methods.generateToken = function(cb: any) {
-  var user = this;
-  var token = jwt.sign(user._id.toHexString(), config.jwtSecret);
-  var oneHour = moment().add(1, 'hour').valueOf();
-
-  user.tokenExp = oneHour;
-  user.token = token;
-  user.save(function (err: Error, user: UserDocument){
-    if(err) return cb(err)
-    cb(null, user);
-});
-}
-
-userSchema.statics.findByToken = function (token: string, cb: any) {
-    var user = this;
-
-    jwt.verify(token, config.jwtSecret, (err: Error, decode: any) => {
-        user.findOne({"_id": decode, "token": token}, function(err: Error, user: UserDocument) {
-            if(err) return cb(err);
-            cb(null, user);
-        })
-    })
+  signToken(user: UserDocument) : String {
+    return jwt.sign({
+      iss: 'boilerplate',
+      sub: user.id,
+      iat: new Date().getTime(), // current time
+      exp: new Date().setDate(new Date().getDate() +1) // current time + 1 day ahead
+    }, config.JWT_SECRET);
+  }
 }
 
 export const User: UserModel = mongoose.model<UserDocument, UserModel>("User", userSchema);
-

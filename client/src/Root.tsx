@@ -8,9 +8,7 @@ import App from './components/App';
 const store = configure();
 
 const Root = () => (
-    <Provider
-      store={store}
-    >
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>

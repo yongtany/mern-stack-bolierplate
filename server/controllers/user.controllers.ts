@@ -2,26 +2,21 @@ import { Request, Response } from 'express';
 import HTTPStatus from 'http-status';
 
 import { User } from '../models/User/user.model';
+import { sendSignUpMail, sendSignInMail } from '../utils/mail';
 
-export function auth(req: Request, res: Response) {
-  res.status(HTTPStatus.OK).json({
-    _id: req._id,
-    isAuth: true,
-    email: req.user.email,
-    name: req.user.name,
-    username: req.user.username,
-    role:req.user.role
-  })
+export async function sendMail(req: Request, res: Response) {
+  const { email } = req.body; 
+
+  const foundUser = await User.findOne({ "email": email });
+  if(!foundUser) {
+    sendSignUpMail(email);
+  } else {
+    //sendLogInMail(email);
+  }
 }
 
-export async function signUp(req: Request, res: Response) {
-  const user = new User(req.body);
-  await user.save((err: Error) => {
-    if (err) return res.status(HTTPStatus.BAD_REQUEST).json({ success: false, err });
-    return res.status(HTTPStatus.CREATED).json({
-        success: true
-    });
-  });
+export function signUp() {
+
 }
 
 export async function signIn(req: Request, res: Response) {
@@ -58,5 +53,3 @@ export async function logout(req: Request, res: Response) {
     });
   });
 };
-
-

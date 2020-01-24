@@ -8,3 +8,12 @@ declare namespace Express {
   }
 
 }
+
+declare module 'nodemailer-sendgrid-transport' {
+  global {
+    
+  }
+  function sgTransport(option: any): any;
+
+  export default sgTransport;
+}
