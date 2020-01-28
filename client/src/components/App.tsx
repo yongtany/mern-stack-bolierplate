@@ -8,7 +8,7 @@ import LandingPage from '../pages/LandingPage';
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Navbar />
+      {/* <Navbar /> */}
       <div style={{ paddingTop: '75px', minHeight: 'calc(100vh - 80px)' }}>
         <Switch>
           <Route exact path="/" component={LandingPage} />

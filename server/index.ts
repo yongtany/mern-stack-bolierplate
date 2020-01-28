@@ -2,8 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
-
-import userRouter from './routes/user.routes';
+import morgan from 'morgan';
+import cors from 'cors';
+import authRouter from './routes/user.routes';
 
 const config = require("./config/keys");
 
@@ -16,11 +17,14 @@ mongoose
   .catch(err => console.error(err));
 mongoose.set('useCreateIndex', true)
 
+// middlewares
+app.use(morgan('dev'));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use('/api/users', userRouter);
+app.use('/api/users', authRouter);
 
 const port: number| string = process.env.PORT || 5000;
 

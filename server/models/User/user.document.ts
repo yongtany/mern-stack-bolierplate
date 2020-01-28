@@ -9,7 +9,6 @@ export default interface UserDocument extends Document {
   image: string,
   token: string;
   tokenExp: number;
-  provider: String;
   comparePassword: Function,
   generateToken: Function,
 };
