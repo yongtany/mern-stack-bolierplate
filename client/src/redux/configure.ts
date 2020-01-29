@@ -1,15 +1,25 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import promiseMiddleware from 'redux-promise';
-import ReduxThunk from 'redux-thunk';
+import ReduxThunk, { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-import * as modules from './modules';
+import { user } from './modules';
 
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
+
+  type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;
 }
-const reducers = combineReducers(modules);
+
+const reducers = combineReducers({
+  user
+});
+
+
+export type RootState = ReturnType<typeof reducers>;
+
 const middlewares = [promiseMiddleware, ReduxThunk];
 
 // 개발 모드일 때만 Redux Devtools 적용

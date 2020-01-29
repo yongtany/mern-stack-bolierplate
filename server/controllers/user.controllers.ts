@@ -23,7 +23,7 @@ export async function signUp(req: Request, res: Response) {
       error: 'Email is already in use'
     })
   }
-  
+
   await user.save((err: Error) => {
     if (err) return res.status(HTTPStatus.BAD_REQUEST).json({ success: false, err });
     return res.status(HTTPStatus.CREATED).json({
