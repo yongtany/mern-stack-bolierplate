@@ -36,13 +36,15 @@ export interface LogoutUserAction {
 
 export type Action = AuthUserAction | LoginUserAction | RegisterUserAction | LogoutUserAction;
 
-export function registerUser(dataToSubmit: any): RegisterUserAction{
-  const request = axios.post(`${USER_SERVER}/register`,dataToSubmit)
-      .then(response => response.data);
-  
-  return {
+export const registerUser = (dataToSubmit: any) => {
+  return async (dispatch: Dispatch) => {
+    const request = await  axios.post(`${USER_SERVER}/signup`, dataToSubmit);
+
+    return dispatch<RegisterUserAction>({
       type: ActionTypes.registerUser,
-      payload: request
+      payload: request.data
+    }); 
+
   }
 }
 
@@ -60,11 +62,11 @@ export const authUser = () => {
 
 export const loginUser = (dataToSubmit: any) => {
   return async (dispatch: Dispatch) => {
-    const request = await  axios.get(`${USER_SERVER}/login`, dataToSubmit);
+    const request = await  axios.post(`${USER_SERVER}/signin`, dataToSubmit);
 
     return dispatch<LoginUserAction>({
       type: ActionTypes.loginUser,
-      payload: request
+      payload: request.data
     }); 
 
   }

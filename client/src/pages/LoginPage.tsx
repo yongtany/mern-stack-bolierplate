@@ -47,7 +47,7 @@ function LoginPage(props: any) {
               if (response.payload.loginSuccess) {
                 window.localStorage.setItem('userId', response.payload.userId);
                 if (rememberMe === true) {
-                  window.localStorage.setItem('rememberMe', 'values.id');
+                  window.localStorage.setItem('rememberMe', 'hi');
                 } else {
                   localStorage.removeItem('rememberMe');
                 }
