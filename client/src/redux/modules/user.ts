@@ -2,46 +2,42 @@ import axios, { AxiosResponse } from 'axios';
 import { USER_SERVER } from '../../components/Config';
 import { Dispatch } from 'redux';
 
-// const LOGIN_USER = 'auth/LOGIN_USER';
-// const REGISTER_USER = 'auth/REGISTER_USER';
-// const AUTH_USER = 'auth/AUTH_USER';
-// const LOGOUT_USER = 'auth/LOGOUT_USER';
-
 enum ActionTypes {
-  loginUser,
-  registerUser,
-  authUser,
-  logoutUser
+  LOGIN_USER = 'auth/LOGIN_USER',
+  REGISTER_USER = 'auth/REGISTER_USER',
+  AUTH_USER = 'auth/AUTH_USER',
+  LOGOUT_USER = 'auth/LOGOUT_USER'
 }
 
-export interface AuthUserAction {
-  type: ActionTypes.authUser,
+interface AuthUserAction {
+  type: ActionTypes.AUTH_USER,
   payload: AxiosResponse<any>
 }
 
-export interface LoginUserAction {
-  type: ActionTypes.loginUser,
+interface LoginUserAction {
+  type: ActionTypes.LOGIN_USER,
   payload: AxiosResponse<any>
 }
 
-export interface RegisterUserAction {
-  type: ActionTypes.registerUser,
+interface RegisterUserAction {
+  type: ActionTypes.REGISTER_USER,
   payload: AxiosResponse<any>;
 }
 
-export interface LogoutUserAction {
-  type: ActionTypes.logoutUser,
-  payload: Promise<any>;
+interface LogoutUserAction {
+  type: ActionTypes.LOGOUT_USER,
+  payload: AxiosResponse<any>;
 }
 
-export type Action = AuthUserAction | LoginUserAction | RegisterUserAction | LogoutUserAction;
+type UserAction = AuthUserAction | LoginUserAction | RegisterUserAction | LogoutUserAction;
+
 
 export const registerUser = (dataToSubmit: any) => {
   return async (dispatch: Dispatch) => {
     const request = await  axios.post(`${USER_SERVER}/signup`, dataToSubmit);
 
     return dispatch<RegisterUserAction>({
-      type: ActionTypes.registerUser,
+      type: ActionTypes.REGISTER_USER,
       payload: request.data
     }); 
   }
@@ -52,7 +48,7 @@ export const authUser = () => {
     const request = await  axios.get(`${USER_SERVER}/auth`);
 
     return dispatch<AuthUserAction>({
-      type: ActionTypes.authUser,
+      type: ActionTypes.AUTH_USER,
       payload: request.data
     }); 
 
@@ -64,34 +60,45 @@ export const loginUser = (dataToSubmit: any) => {
     const request = await  axios.post(`${USER_SERVER}/signin`, dataToSubmit);
 
     return dispatch<LoginUserAction>({
-      type: ActionTypes.loginUser,
+      type: ActionTypes.LOGIN_USER,
       payload: request.data
     }); 
   }
 }
 
-export function logoutUser() : LogoutUserAction{
-  const request = axios.get(`${USER_SERVER}/logout`)
-  .then(response => response.data);
+export const logoutUser = () => {
+  return async (dispatch: Dispatch) => {
+    const request = await  axios.get(`${USER_SERVER}/logout`);
 
-  return {
-      type: ActionTypes.logoutUser,
-      payload: request
+    return dispatch<LogoutUserAction>({
+      type: ActionTypes.LOGOUT_USER,
+      payload: request.data
+    }); 
   }
 }
 
-const initialState = {
-};
 
-export default function(state = initialState, action: Action){
+// export function logoutUser() : LogoutUserAction{
+//   const request = axios.get(`${USER_SERVER}/logout`)
+//   .then(response => response.data);
+
+//   return {
+//       type: ActionTypes.LOGOUT_USER,
+//       payload: request
+//   }
+// }
+
+const initialState = {};
+
+export default function(state = initialState, action: UserAction){
   switch(action.type){
-      case ActionTypes.registerUser:
+      case ActionTypes.REGISTER_USER:
           return {...state, register: action.payload }
-      case ActionTypes.loginUser:
+      case ActionTypes.LOGIN_USER:
           return { ...state, loginSucces: action.payload }
-      case ActionTypes.authUser:
+      case ActionTypes.AUTH_USER:
         return {...state, userData: action.payload }
-      case ActionTypes.logoutUser:
+      case ActionTypes.LOGOUT_USER:
           return {...state }
       default:
           return state;

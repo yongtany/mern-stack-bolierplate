@@ -20,11 +20,14 @@ function LoginPage(props: any) {
   };
 
   const initialEmail = localStorage.getItem("rememberMe") ? localStorage.getItem("rememberMe") : '';
-
+  type DataToSubmit = {
+    email: string,
+    password: string
+  }
   return (
     <Formik
       initialValues={{
-        email: initialEmail,
+        email: initialEmail || '',
         password: '',
       }}
       validationSchema={Yup.object().shape({
@@ -37,17 +40,17 @@ function LoginPage(props: any) {
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          let dataToSubmit = {
+          let dataToSubmit: DataToSubmit = {
             email: values.email,
             password: values.password
           };
-
+          
           dispatch(loginUser(dataToSubmit))
             .then((response: any) => {
               if (response.payload.loginSuccess) {
                 window.localStorage.setItem('userId', response.payload.userId);
                 if (rememberMe === true) {
-                  window.localStorage.setItem('rememberMe', 'hi');
+                  window.localStorage.setItem('rememberMe', values.email);
                 } else {
                   localStorage.removeItem('rememberMe');
                 }

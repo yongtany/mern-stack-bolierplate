@@ -1,18 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Menu } from 'antd';
-import axios from 'axios';
-import { USER_SERVER } from '../Config';
 import { withRouter } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from '../../redux/modules/user';
 
 function RightMenu(props: any) {
-  const user = useSelector((state: any) => state.user)
+  const user = useSelector((state: any) => state.user);
+  const dispatch: AppDispatch = useDispatch();
 
   const logoutHandler = () => {
-    axios.get(`${USER_SERVER}/logout`).then(response => {
-      console.log(response.status);
-      if (response.status === 200) {
+    dispatch(logoutUser()).then((response: any) => {
+      if (response.payload.success) {
         props.history.push("/login");
       } else {
         alert('Log Out Failed')
