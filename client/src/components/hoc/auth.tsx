@@ -1,15 +1,8 @@
 import React, { useEffect } from 'react';
-import { authUser } from '../../redux/modules/user';
-import { RootState } from '../../redux/configure';
-
 import { useSelector, useDispatch } from "react-redux";
 
-// export type ReduxDispatch = ThunkDispatch<any, any, Action>;
-// export function useReduxDispatch(): ReduxDispatch {
-//   return useDispatch<ReduxDispatch>();
-// }
-
-
+import { authUser } from '../../redux/modules/user';
+import { RootState } from '../../redux/configure';
 
 export default function (ComposedClass: any, reload: any, adminRoute = null) {
     function AuthenticationCheck(props: any) {
@@ -42,5 +35,5 @@ export default function (ComposedClass: any, reload: any, adminRoute = null) {
             <ComposedClass {...props} user={user} />
         )
     }
-    return AuthenticationCheck
+    return AuthenticationCheck;
 }

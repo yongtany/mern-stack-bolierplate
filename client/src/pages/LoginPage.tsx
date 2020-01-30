@@ -71,17 +71,16 @@ function LoginPage(props: any) {
           values,
           touched,
           errors,
-          dirty,
+          // dirty,
           isSubmitting,
           handleChange,
           handleBlur,
           handleSubmit,
-          handleReset,
+          // handleReset,
         } = props;
         return (
           <div className="app">
-
-            <Title level={2}>Log In</Title>
+            <Title level={1}>Log In</Title>
             <form onSubmit={handleSubmit} style={{ width: '350px' }}>
 
               <Form.Item required>

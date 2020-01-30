@@ -26,7 +26,7 @@ export interface LoginUserAction {
 
 export interface RegisterUserAction {
   type: ActionTypes.registerUser,
-  payload: Promise<any>;
+  payload: AxiosResponse<any>;
 }
 
 export interface LogoutUserAction {
@@ -44,7 +44,6 @@ export const registerUser = (dataToSubmit: any) => {
       type: ActionTypes.registerUser,
       payload: request.data
     }); 
-
   }
 }
 
@@ -68,7 +67,6 @@ export const loginUser = (dataToSubmit: any) => {
       type: ActionTypes.loginUser,
       payload: request.data
     }); 
-
   }
 }
 
@@ -84,13 +82,6 @@ export function logoutUser() : LogoutUserAction{
 
 const initialState = {
 };
-
-// // 액션들의 타입스크립트 타입 준비
-// export type AuthAction =
-//   | ReturnType<typeof registerUser>
-//   | ReturnType<typeof loginUser>
-//   | ReturnType<typeof authUser>
-//   | ReturnType<typeof logoutUser>;
 
 export default function(state = initialState, action: Action){
   switch(action.type){
