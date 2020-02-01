@@ -77,17 +77,6 @@ export const logoutUser = () => {
   }
 }
 
-
-// export function logoutUser() : LogoutUserAction{
-//   const request = axios.get(`${USER_SERVER}/logout`)
-//   .then(response => response.data);
-
-//   return {
-//       type: ActionTypes.LOGOUT_USER,
-//       payload: request
-//   }
-// }
-
 const initialState = {};
 
 export default function(state = initialState, action: UserAction){
