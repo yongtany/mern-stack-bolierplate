@@ -11,7 +11,7 @@ const postSchema = new Schema({
       type:String,
       maxlength:50,
   },
-  description: {
+  content: {
       type: String,
   },
   privacy: {
@@ -24,9 +24,6 @@ const postSchema = new Schema({
   views : {
       type: Number,
       default: 0 
-  },
-  duration :{
-      type: String
   },
   thumbnail: {
       type: String

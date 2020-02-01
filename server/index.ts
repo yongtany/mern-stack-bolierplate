@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import cors from 'cors';
 import authRouter from './routes/user.routes';
+import postRouter from './routes/post.routes';
 
 const config = require("./config/keys");
 
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', authRouter);
+app.use('/api/post', postRouter);
 
 const port: number| string = process.env.PORT || 5000;
 

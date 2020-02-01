@@ -12,11 +12,9 @@ declare namespace Express {
 
 }
 
-declare module 'nodemailer-sendgrid-transport' {
-  global {
+// declare module 'multer' {
+//   global {
     
-  }
-  function sgTransport(option: any): any;
-
-  export default sgTransport;
-}
+//   }
+//   function DiskStorageOptions(): any
+// }
