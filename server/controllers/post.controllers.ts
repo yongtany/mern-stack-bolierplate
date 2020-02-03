@@ -42,12 +42,21 @@ export function upload(req: Request, res: Response) {
   });
 }
 
-export function createPost(req: Request, res: Response) {
+export async function createPost(req: Request, res: Response) {
   const post = new Post(req.body);
 
-  post.save((err, postInfo) => {
+  await post.save((err, postInfo) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({ success: true, postInfo })
   })
+}
+
+export async function getPostById  (req: Request, res: Response){
+  await Post.findOne({ "_id": req.params.id })
+        .populate('writer')
+        .exec((err, post) => {
+            if (err) return res.status(HTTPStatus.BAD_REQUEST).send(err);
+            res.status(200).json({ success: true, post })
+        })
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Typography, Button, Form, Input } from 'antd';
+import { Typography, Button, Form, Input, message } from 'antd';
 import QuillEditor from '../components/Editor/QuillEditor';
 import FileUpload from '../components/FileUpload/FileUpload';
 import axios from 'axios';
@@ -62,8 +62,10 @@ function CreatePostPage(props: any) {
         axios.post('/post/createPost', variables)
             .then(response => {
                 if (response.data.success) {
-                    alert('Product Successfully Uploaded')
-                    props.history.push('/')
+                    message.success('Post Created!');
+                    setTimeout(() => {
+                        props.history.push('/post')
+                    }, 2000);
                 } else {
                     alert('Failed to upload Product')
                 }

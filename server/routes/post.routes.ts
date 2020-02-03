@@ -8,4 +8,6 @@ router.post('/upload', auth, postControllers.upload);
 
 router.post('/createPost', auth, postControllers.createPost);
 
+router.get('/:id', postControllers.getPostById);
+
 export default router;
