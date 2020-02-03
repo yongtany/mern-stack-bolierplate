@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Typography, Button, Form, message, Input, Icon } from 'antd';
+import { Typography, Button, Form, Input } from 'antd';
+import QuillEditor from '../components/Editor/QuillEditor';
 import FileUpload from '../components/FileUpload/FileUpload';
 import axios from 'axios';
 
 const { Title } = Typography;
-const { TextArea } = Input;
 
-const Continents = [
+const Categories = [
     { key: 1, value: "Dev" },
     { key: 2, value: "Travel" },
     { key: 3, value: "Life" },
@@ -16,41 +16,47 @@ const Continents = [
 
 function CreatePostPage(props: any) {
 
-    const [TitleValue, setTitleValue] = useState("")
-    const [ContentValue, setContent] = useState("")
-    const [CategoryValue, setCategory] = useState(1)
-    const [Images, setImages] = useState([])
+    const [title, setTitle] = useState("")
+    const [content, setContent] = useState("")
+    const [category, setCategory] = useState(1)
+    const [Image, setImage] = useState('')
+    const [Files, setFiles] = useState([]);
 
 
-    const handleTitleChange = (event: any) => {
-        setTitleValue(event.currentTarget.value)
+    const handleTitle = (event: any) => {
+        setTitle(event.currentTarget.value)
     }
 
-    const handleContent = (event: any) => {
-        setContent(event.currentTarget.value)
+    const handleContent = (value: any) => {
+        setContent(value)
     }
 
     const handleCategorySelectChange = (event: any) => {
         setCategory(event.currentTarget.value)
     }
 
-    const updateImages = (newImages: any) => {
-        setImages(newImages)
+    const updateImage = (newImage: any) => {
+        setImage(newImage)
+        console.log(newImage);
     }
-    const onSubmit = (event: any) => {
+
+    const handleFiles = (files: any) => {
+        setFiles(files)
+    }
+    const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        if (!TitleValue || !ContentValue || 
-            !CategoryValue || !Images) {
+        if (!title || !content || 
+            !category || !Image) {
             return alert('fill all the fields first!')
         }
 
         const variables = {
-            writer: props.user.userData._id,
-            title: TitleValue,
-            content: ContentValue,
-            images: Images,
-            continents: CategoryValue,
+            writer: window.localStorage.getItem('userId'),
+            title: title,
+            content: content,
+            thumbnail: Image,
+            category: category,
         }
 
         axios.post('/post/createPost', variables)
@@ -71,40 +77,44 @@ function CreatePostPage(props: any) {
                 <Title level={2}> Upload Your Post</Title>
             </div>
 
-
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 DropZone
-                <FileUpload refreshFunction={updateImages} />
+                <FileUpload refreshFunction={updateImage} />
 
                 <br />
                 <br />
                 <label>Title</label>
                 <Input
-                    onChange={handleTitleChange}
-                    value={TitleValue}
+                    onChange={handleTitle}
+                    value={title}
                 />
                 <br />
                 <br />
-                <label>Description</label>
-                <TextArea
-                    onChange={handleContent}
-                    value={ContentValue}
+
+                <QuillEditor
+                    placeholder={"Start Posting Something"}
+                    onEditorChange={handleContent}
+                    onFilesChange={handleFiles}
                 />
-                <br />
+                
                 <br />
                 
                 <select onChange={handleCategorySelectChange}>
-                    {Continents.map(item => (
-                        <option key={item.key} value={item.key}>{item.value} </option>
+                    {Categories.map(item => (
+                        <option key={item.key} value={item.key}>{item.value}</option>
                     ))}
                 </select>
+
                 <br />
                 <br />
 
                 <Button
-                    // onClick={onSubmit}
-                >
-                    Submit
+                        size="large"
+                        htmlType="submit"
+                        className=""
+                        onSubmit={handleSubmit}
+                    >
+                        Submit
                 </Button>
 
             </Form>

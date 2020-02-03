@@ -17,14 +17,14 @@ let storage = multer.diskStorage({
 
 const fileFilter = (req: Request, file: any, cb: any) => {
   // reject a file
-  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'video/mp4') {
     cb(null, true);
   } else {
     cb(null, false);
   }
 };
 
-const upload = multer({ 
+const uploader = multer({ 
   storage: storage,
   limits : {
     fileSize: 1024 * 1024 * 5
@@ -33,8 +33,8 @@ const upload = multer({
 }).single("file");
 
 
-export function uploadThumbnail(req: Request, res: Response) {
-  upload(req, res, err => {
+export function upload(req: Request, res: Response) {
+  uploader(req, res, err => {
     if (err) {
         return res.json({ success: false, err });
     }
@@ -43,7 +43,7 @@ export function uploadThumbnail(req: Request, res: Response) {
 }
 
 export function createPost(req: Request, res: Response) {
-  let post = new Post({ content: req.body.content, writer: req.body.userID });
+  const post = new Post(req.body);
 
   post.save((err, postInfo) => {
     if (err) return res.json({ success: false, err });

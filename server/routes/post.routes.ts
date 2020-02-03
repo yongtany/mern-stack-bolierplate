@@ -4,7 +4,7 @@ import * as postControllers from '../controllers/post.controllers';
 
 const router = Router();
 
-router.post('/uploadThumbnail', auth, postControllers.uploadThumbnail);
+router.post('/upload', auth, postControllers.upload);
 
 router.post('/createPost', auth, postControllers.createPost);
 

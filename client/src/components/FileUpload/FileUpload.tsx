@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function FileUpload(props: any) {
 
-    const [Image, setImages] = useState('')
+    const [Image, setImage] = useState('')
 
     const onDrop = (files: any) => {
 
@@ -15,11 +15,11 @@ function FileUpload(props: any) {
         }
         formData.append("file", files[0])
         //save the Image we chose inside the Node Server 
-        axios.post('/post/uploadThumbnail', formData, config)
+        axios.post('/post/upload', formData, config)
             .then((response: any) => {
                 if (response.data.success) {
-                    setImages(response.data.fileName)
-                    props.refreshFunction(Image)
+                    setImage(response.data.fileName)
+                    props.refreshFunction(response.data.fileName)
 
                 } else {
                     alert('Failed to save the Image in Server')
@@ -30,7 +30,7 @@ function FileUpload(props: any) {
 
     const onDelete = (image: any) => {
         let newImages = ''
-        setImages(newImages);
+        setImage(newImages);
         props.refreshFunction(newImages)
     }
 

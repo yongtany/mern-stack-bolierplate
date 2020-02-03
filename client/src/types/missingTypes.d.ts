@@ -11,4 +11,10 @@ declare module "redux" {
   };
 }
 
+declare global {
+  interface Window {
+    clipboardData(): any
+  }
+}
+
 export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;

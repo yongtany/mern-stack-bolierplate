@@ -28,6 +28,8 @@ app.use(cookieParser());
 app.use('/api/users', authRouter);
 app.use('/api/post', postRouter);
 
+app.use('/uploads', express.static('uploads'));
+
 const port: number| string = process.env.PORT || 5000;
 
 app.listen(port, () => {
