@@ -60,3 +60,12 @@ export async function getPostById  (req: Request, res: Response){
         })
 }
 
+export async function getPostList (req: Request, res: Response) {
+  await Post.find()
+    .populate('writer')
+    .exec((err, posts) => {
+      if(err) return res.status(HTTPStatus.BAD_REQUEST).send(err)
+      res.status(HTTPStatus.OK).json({ success: true, posts })
+    })
+}
+

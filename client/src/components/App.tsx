@@ -8,6 +8,7 @@ import LoginPage from '../pages/LoginPage';
 import LandingPage from '../pages/LandingPage';
 import CreatePostPage from '../pages/CreatePostPage';
 import PostDetailPage from '../pages/PostDetailPage';
+import PostListPage from '../pages/PostListPage';
 
 function App () {
   return (
@@ -19,6 +20,7 @@ function App () {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/createPost" component={Auth(CreatePostPage, true)} />
+          <Route exact path="/post" component={Auth(PostListPage, null)} />
           <Route exact path="/post/:postId" component={Auth(PostDetailPage, null)} />
         </Switch>
       </div>
