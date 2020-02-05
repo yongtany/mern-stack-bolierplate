@@ -5,7 +5,6 @@ import multer from 'multer';
 import { Post } from '../models/Post/post.model';
 
 // Multer Storage
-// STORAGE MULTER CONFIG
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, "uploads/");
@@ -54,8 +53,14 @@ export async function createPost(req: Request, res: Response) {
 export async function getPostById  (req: Request, res: Response){
   await Post.findOne({ "_id": req.params.id })
         .populate('writer')
-        .exec((err, post) => {
+        .exec((err, post: any) => {
             if (err) return res.status(HTTPStatus.BAD_REQUEST).send(err);
+            post.views++;
+            post.save((err: Error) => {
+              if(err) {
+                return res.status(HTTPStatus.BAD_REQUEST).send(err);
+              }
+            })
             res.status(200).json({ success: true, post })
         })
 }
@@ -65,6 +70,17 @@ export async function getPostList (req: Request, res: Response) {
     .populate('writer')
     .exec((err, posts) => {
       if(err) return res.status(HTTPStatus.BAD_REQUEST).send(err)
+      res.status(HTTPStatus.OK).json({ success: true, posts })
+    })
+}
+
+export async function getPopularPosts (req: Request, res: Response) {
+  await Post.find()
+    .sort({ views: -1 })
+    .limit(3)
+    .populate('writer')
+    .exec((err, posts) => {
+      if(err) return res.json({ success: false, err });
       res.status(HTTPStatus.OK).json({ success: true, posts })
     })
 }

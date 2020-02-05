@@ -4,6 +4,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Row, Col, Card, Icon, Avatar, Typography } from 'antd';
+import SidePost from '../components/SidePost/SidePost';
 
 const { Text, Title } = Typography;
 const { Meta } = Card;
@@ -24,13 +25,14 @@ function PostListPage() {
 
   const renderCards = posts.map((post: any, index: any) => {
     return (
-      <Link to={`/post/${post._id}`}>
-        <Card key={index}
+      <Link to={`/post/${post._id}`} key={index}>
+        <Card 
+          hoverable
           style={{ marginBottom: '2rem' }}
           cover={
-            <div style={{padding: '1rem 1rem 0 1rem'}}>
+            <div style={{padding: '1rem 1rem 0 1rem' }}>
               <Title level={4}>Dev</Title>
-              <hr style={{ borderTop: '0.4px solid #E7EAF1'}}/>
+              <hr style={{ borderTop: '0.4px solid #E7EAF1'}} />
               <img
                 style={{width: '100%'}}
                 alt="example"
@@ -56,20 +58,26 @@ function PostListPage() {
           />
         </Card>
       </Link>
-   )
-})
+    )
+  })
 
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto'}}>
       <Row>
         <Col lg={18} xs={24}>
-          <div className="postPage" style={{ width: '100%', padding: '3rem' }}>
+          <div className="postPage" style={{ width: '100%', marginTop: '3rem'}}>
+            <Text>Recents posts</Text>
+            <br />
+            <br />
             {renderCards}
           </div>
         </Col>
         <Col lg={6} xs={24}>
           <div style={{padding: '3rem 1rem'}}>
-            Hello
+            <Text>Popular posts</Text>
+            <br />
+            <br />
+            <SidePost />
           </div>
         </Col>
       </Row>
