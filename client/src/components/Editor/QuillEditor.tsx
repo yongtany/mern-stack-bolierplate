@@ -2,6 +2,7 @@ import React from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import './Quill.css';
+import { POST_SERVER } from '../Config';
 
 import axios from 'axios';
 const __ISMSIE__ = navigator.userAgent.match(/Trident/i) ? true : false;
@@ -275,7 +276,7 @@ class QuillEditor extends React.Component<Props, State> {
             }
             formData.append("file", file);
 
-            axios.post('/post/upload', formData, config)
+            axios.post(`${POST_SERVER}/upload`, formData, config)
                 .then((response: any) => {
                     if (response.data.success) {
 
@@ -287,7 +288,7 @@ class QuillEditor extends React.Component<Props, State> {
 
                         //먼저 노드 서버에다가 이미지를 넣은 다음에   여기 아래에 src에다가 그걸 넣으면 그게 
                         //이미지 블롯으로 가서  크리에이트가 이미지를 형성 하며 그걸 발류에서     src 랑 alt 를 가져간후에  editorHTML에 다가 넣는다.
-                        quill.insertEmbed(position, "image", { src: "http://localhost:5000/" + response.data.url, alt: response.data.fileName });
+                        quill.insertEmbed(position, "image", { src: response.data.url, alt: response.data.fileName });
                         quill.setSelection(position + 1);
 
                         if (this._isMounted) {
@@ -315,7 +316,7 @@ class QuillEditor extends React.Component<Props, State> {
             }
             formData.append("file", file);
 
-            axios.post('/post/upload', formData, config)
+            axios.post(`${POST_SERVER}/upload`, formData, config)
                 .then((response: any) => {
                     if (response.data.success) {
 
@@ -324,7 +325,7 @@ class QuillEditor extends React.Component<Props, State> {
 
                         let range = quill.getSelection();
                         let position = range ? range.index : 0;
-                        quill.insertEmbed(position, "video", { src: "http://localhost:5000/" + response.data.url, title: response.data.fileName });
+                        quill.insertEmbed(position, "video", { src: response.data.url, title: response.data.fileName });
                         quill.setSelection(position + 1);
 
                         if (this._isMounted) {
@@ -353,7 +354,7 @@ class QuillEditor extends React.Component<Props, State> {
             }
             formData.append("file", file);
 
-            axios.post('/post/upload', formData, config)
+            axios.post(`${POST_SERVER}/upload`, formData, config)
                 .then((response: any) => {
                     if (response.data.success) {
 

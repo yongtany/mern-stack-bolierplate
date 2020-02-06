@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Avatar, Row, Col, Typography } from 'antd';
 import SidePost from '../components/SidePost/SidePost';
+import { POST_SERVER } from '../components/Config';
 const { Title, Text } = Typography
 
 
@@ -18,7 +19,7 @@ function PostDetailPage(props: any) {
   useEffect(() => {
     const variable: any = { postId }
 
-    axios.get(`/post/${postId}`, variable)
+    axios.get(`${POST_SERVER}/${postId}`, variable)
       .then(response => {
         if(response.data.success) {
           setPost(response.data.post)
@@ -31,7 +32,7 @@ function PostDetailPage(props: any) {
   if (post.writer) {
     return (
         <>
-          <div style={{ width: "100%", height: '20rem', backgroundImage: `url(${`http://localhost:5000/uploads/${post.thumbnail}`})`}} />
+          <div style={{ width: "100%", height: '20rem', backgroundImage: `url(${post.thumbnail})`}} />
           <div style={{ maxWidth: '900px', margin: '0 auto'}}>
             <Row>
               <Col lg={18} xs={24}>

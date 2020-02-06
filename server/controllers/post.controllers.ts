@@ -3,6 +3,7 @@ import HTTPStatus from 'http-status';
 import multer from 'multer';
 
 import { Post } from '../models/Post/post.model';
+const keys = require('../config/keys');
 
 // Multer Storage
 let storage = multer.diskStorage({
@@ -31,13 +32,20 @@ const uploader = multer({
   fileFilter: fileFilter 
 }).single("file");
 
+const cloudinary = require('cloudinary');
+cloudinary.config({
+  cloud_name: 'djs4injum',
+  api_key: keys.cloudClientID,
+  api_secret: keys.cloudSecret
+});
 
 export function upload(req: Request, res: Response) {
   uploader(req, res, err => {
-    if (err) {
-        return res.json({ success: false, err });
-    }
-    return res.json({ success: true, url: req.file.path, fileName: req.file.filename });
+    cloudinary.uploader.upload(req.file.path, async function(result: any) {
+      if (err) return res.json({ success: false, err });
+      console.log(result);
+      return res.json({ success: true, url: result.secure_url, fileName: req.file.filename }); 
+    })
   });
 }
 

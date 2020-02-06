@@ -3,6 +3,7 @@ import { Typography, Button, Form, Input, message } from 'antd';
 import QuillEditor from '../components/Editor/QuillEditor';
 import FileUpload from '../components/FileUpload/FileUpload';
 import axios from 'axios';
+import { POST_SERVER } from '../components/Config';
 
 const { Title } = Typography;
 
@@ -59,7 +60,7 @@ function CreatePostPage(props: any) {
             category: category,
         }
 
-        axios.post('/post/createPost', variables)
+        axios.post(`${POST_SERVER}/createPost`, variables)
             .then(response => {
                 if (response.data.success) {
                     message.success('Post Created!');

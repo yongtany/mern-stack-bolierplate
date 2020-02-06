@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Row, Col, Card, Icon, Avatar, Typography } from 'antd';
 import SidePost from '../components/SidePost/SidePost';
+import { POST_SERVER } from '../components/Config';
+
 
 const { Text, Title } = Typography;
 const { Meta } = Card;
@@ -15,7 +17,7 @@ function PostListPage() {
   dayjs.extend(relativeTime);
 
   useEffect(() => {
-    axios.get('/post')
+    axios.get(`${POST_SERVER}/`)
       .then(response => {
         if(response.data.success) {
           setPosts(response.data.posts)
@@ -36,7 +38,7 @@ function PostListPage() {
               <img
                 style={{width: '100%'}}
                 alt="example"
-                src={`http://localhost:5000/uploads/${post.thumbnail}`}
+                src={`${post.thumbnail}`}
               />
               <div style={{paddingTop: '1rem'}}>
                 <Avatar src={post.writer.image} /> 

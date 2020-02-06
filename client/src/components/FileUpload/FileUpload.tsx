@@ -3,6 +3,8 @@ import Dropzone from 'react-dropzone';
 import { Icon } from 'antd';
 import axios from 'axios';
 
+import { POST_SERVER } from '../Config';
+
 function FileUpload(props: any) {
 
     const [Image, setImage] = useState('')
@@ -15,11 +17,11 @@ function FileUpload(props: any) {
         }
         formData.append("file", files[0])
         //save the Image we chose inside the Node Server 
-        axios.post('/post/upload', formData, config)
+        axios.post(`${POST_SERVER}/upload`, formData, config)
             .then((response: any) => {
                 if (response.data.success) {
-                    setImage(response.data.fileName)
-                    props.refreshFunction(response.data.fileName)
+                    setImage(response.data.url)
+                    props.refreshFunction(response.data.url)
 
                 } else {
                     alert('Failed to save the Image in Server')
@@ -58,7 +60,7 @@ function FileUpload(props: any) {
             <div style={{ display: 'flex', width: '350px', height: '240px', overflowX: 'scroll' }}>
                     <div onClick={() => onDelete(Image)}>
                         {Image && 
-                            <img style={{ minWidth: '300px', width: '300px', height: '240px' }} src={`http://localhost:5000/uploads/${Image}`} alt='post' />
+                            <img style={{ minWidth: '300px', width: '300px', height: '240px' }} src={`${Image}`} alt='post' />
                         }
                     </div>
             </div>

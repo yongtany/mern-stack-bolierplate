@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
+import { POST_SERVER } from '../Config';
 import { Card } from 'antd';;
 const { Meta } = Card;
 function SidePost() {
@@ -7,7 +8,7 @@ function SidePost() {
     const [SidePosts, setSidePosts]: any = useState([])
 
     useEffect(() => {
-        axios.get('/post/popular')
+        axios.get(`${POST_SERVER}/popular`)
             .then(response => {
                 if (response.data.success) {
                     console.log(response)
@@ -26,7 +27,7 @@ function SidePost() {
           style={{ width: '100%', marginBottom: '2rem', padding: '0.5rem' }}
           cover={<img 
             alt="example" 
-            src={`http://localhost:5000/uploads/${post.thumbnail}`} 
+            src={`${post.thumbnail}`} 
           />}
         >
           <Meta title={post.title} description={post.writer.username} />
