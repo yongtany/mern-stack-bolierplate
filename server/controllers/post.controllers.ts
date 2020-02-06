@@ -7,9 +7,9 @@ const keys = require('../config/keys');
 
 // Multer Storage
 let storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, "uploads/");
-  },
+  // destination: (req, file, cb) => {
+  //     cb(null, "uploads/");
+  // },
   filename: (req, file, cb) => {
       cb(null, `${Date.now()}_${file.originalname}`);
   },
@@ -43,7 +43,7 @@ export function upload(req: Request, res: Response) {
   uploader(req, res, err => {
     cloudinary.uploader.upload(req.file.path, async function(result: any) {
       if (err) return res.json({ success: false, err });
-      console.log(result);
+      console.log(req.file.path);
       return res.json({ success: true, url: result.secure_url, fileName: req.file.filename }); 
     })
   });
