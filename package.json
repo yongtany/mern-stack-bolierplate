@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "description": "MERN stack bolierplate project",
   "main": "index.js",
+  "engines": {
+    "node": "11.10.1",
+    "npm": "6.7.0",
+    "yarn": "1.16.0"
+  },
   "scripts": {
     "start:build": "tsc -w",
     "start:run": "nodemon dist/index.js",
-    "start": "concurrently npm:start:*"
+    "dev": "concurrently npm:start:*",
+    "start": "node dist/index.js",
+    "client": "NODE_PATH=./client npm run start --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "yongtany",
