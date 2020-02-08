@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Input, Button } from 'antd';
 import { COMMENT_SERVER } from '../Config';
 import SingleComment from './SingleComment';
+import ReplyComment from './ReplyComment';
 
 const { TextArea } = Input;
 
@@ -45,7 +46,8 @@ function Comments(props: any) {
 
       (!comment.responseTo &&
         <Fragment key={index}>
-          <SingleComment comment={comment} />
+          <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
+          <ReplyComment CommentLists={props.CommentLists} movieId={props.movieId} parentCommentId={comment._id} refreshFunction={props.refreshFunction} />
         </Fragment>
       )
       ))}
