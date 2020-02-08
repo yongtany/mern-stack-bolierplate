@@ -17,4 +17,11 @@ declare global {
   }
 }
 
+declare module 'highlight.js' {
+  global {
+    hljs
+  }
+}
+
+
 export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;

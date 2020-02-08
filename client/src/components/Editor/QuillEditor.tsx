@@ -2,6 +2,7 @@ import React from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import './Quill.css';
+
 import { POST_SERVER } from '../Config';
 
 import axios from 'axios';
@@ -435,7 +436,7 @@ class QuillEditor extends React.Component<Props, State> {
                 // insertPoll: this.pollHandler,
             }
         },
-
+        syntax: true
     };
 
     formats = [

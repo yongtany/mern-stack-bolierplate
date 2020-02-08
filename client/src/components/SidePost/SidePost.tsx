@@ -11,7 +11,6 @@ function SidePost() {
         axios.get(`${POST_SERVER}/popular`)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response)
                     setSidePosts(response.data.posts)
                 } else {
                     alert('Failed to get Posts')
