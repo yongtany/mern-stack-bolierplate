@@ -18,3 +18,15 @@ export async function saveComment (req: Request, res: Response) {
   })
 }
 
+export async function getComments(req: Request, res: Response) {
+  await Comment.find({ "postId": req.params.id })
+    .populate("writer")
+    .exec((err: Error, comments: any) => {
+      if(err) return res.status(HTTPStatus.BAD_REQUEST).send(err);
+      res.status(HTTPStatus.OK).json({
+        success: true,
+        comments
+      })
+    })
+}
+

@@ -7,6 +7,7 @@ import cors from 'cors';
 import path from 'path';
 import authRouter from './routes/user.routes';
 import postRouter from './routes/post.routes';
+import commentRouter from './routes/comment.routes';
 
 const config = require("./config/keys");
 
@@ -28,6 +29,7 @@ app.use(cookieParser());
 
 app.use('/api/users', authRouter);
 app.use('/api/post', postRouter);
+app.use('/api/comment', commentRouter);
 
 app.use('/uploads', express.static('uploads'));
 

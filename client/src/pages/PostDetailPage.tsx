@@ -4,22 +4,23 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Avatar, Row, Col, Typography } from 'antd';
 import SidePost from '../components/SidePost/SidePost';
-import { POST_SERVER } from '../components/Config';
+import Comments from '../components/Comments/Comments';
+import { POST_SERVER, COMMENT_SERVER } from '../components/Config';
+
 const { Title, Text } = Typography
 
 
 function PostDetailPage(props: any) {
-  const postId = props.match.params.postId;
-
-  const [post, setPost]: any = useState([]);
   dayjs.extend(relativeTime);
 
-  window.scrollTo(0,0);
+  const postId = props.match.params.postId;
+  const [post, setPost]: any = useState([]);
+  const [CommentLists, setCommentLists ]: any = useState([]);
+
+  
 
   useEffect(() => {
-    const variable: any = { postId }
-
-    axios.get(`${POST_SERVER}/${postId}`, variable)
+    axios.get(`${POST_SERVER}/${postId}`)
       .then(response => {
         if(response.data.success) {
           setPost(response.data.post)
@@ -27,7 +28,21 @@ function PostDetailPage(props: any) {
           alert('Couldnt get post')
         }
       })
+
+    axios.get(`${COMMENT_SERVER}/${postId}/getComments`)
+      .then(response => {
+        if (response.data.success) {
+          setCommentLists(response.data.comments)
+          console.log(response.data);
+        } else {
+          alert('Failed to get comments Info')
+      }
+    })
   }, [postId])
+
+  const updateComment = (newComment: any) => {
+    setCommentLists(CommentLists.concat(newComment));
+  }
 
   if (post.writer) {
     return (
@@ -48,6 +63,12 @@ function PostDetailPage(props: any) {
                     style={{marginTop: '3rem'}}
                     dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
+
+                <Comments
+                  CommentLists={CommentLists}
+                  postId={postId}
+                  refreshFunction={updateComment}
+                />
               </Col>
               <Col lg={6} xs={24}>
                 <div style={{padding: '3rem 1rem'}}>
