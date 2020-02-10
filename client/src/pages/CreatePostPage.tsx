@@ -76,16 +76,16 @@ function CreatePostPage(props: any) {
     return (
         <div style={{ maxWidth: '700px', margin: 'auto', padding: '3rem 0 3rem 0' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <Title level={2}> Upload Your Post</Title>
+                <Title style={{ color: 'white'}} level={2}> 포스트 업로드</Title>
             </div>
 
-            <Form onSubmit={handleSubmit}>
+            <Form style={{ color: 'white'}} onSubmit={handleSubmit}>
                 DropZone
                 <FileUpload refreshFunction={updateImage} />
 
                 <br />
                 <br />
-                <label>Title</label>
+                <label>제목</label>
                 <Input
                     onChange={handleTitle}
                     value={title}
@@ -101,7 +101,7 @@ function CreatePostPage(props: any) {
                 
                 <br />
                 
-                <select onChange={handleCategorySelectChange}>
+                <select style={{ color: 'black'}}onChange={handleCategorySelectChange}>
                     {Categories.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option>
                     ))}
@@ -116,7 +116,7 @@ function CreatePostPage(props: any) {
                         className=""
                         onSubmit={handleSubmit}
                     >
-                        Submit
+                        포스트 생성
                 </Button>
 
             </Form>

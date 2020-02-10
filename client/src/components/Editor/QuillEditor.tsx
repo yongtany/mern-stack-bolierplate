@@ -411,6 +411,7 @@ class QuillEditor extends React.Component<Props, State> {
                 <ReactQuill
                     ref={(el) => { this.reactQuillRef = el }}
                     theme={'snow'}
+                    style={{ color: 'white'}}
                     onChange={this.handleChange}
                     modules={this.modules}
                     formats={this.formats}
@@ -436,7 +437,6 @@ class QuillEditor extends React.Component<Props, State> {
                 // insertPoll: this.pollHandler,
             }
         },
-        syntax: true
     };
 
     formats = [

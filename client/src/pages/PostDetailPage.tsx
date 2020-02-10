@@ -46,20 +46,20 @@ function PostDetailPage(props: any) {
   if (post.writer) {
     return (
         <>
-          <div style={{ width: "100%", height: '20rem', backgroundImage: `url(${post.thumbnail})`}} />
           <div style={{ maxWidth: '1200px', margin: '0 auto'}}>
             <Row>
               <Col lg={17} xs={24}>
-                <div className="postPage" style={{ width: '100%', margin: '3rem 0 3rem 0', padding: '3rem', backgroundColor: 'white' }}>
-                  <Title level={3}>{post.title}</Title>
-                  <br />
+                <div className="postPage" style={{ color: 'white', width: '100%', margin: '3rem 0 3rem 0', padding: '3rem'}}>
+                  <Title style={{ color: 'white'}} level={3}>{post.title}</Title>
+                  <img style={{ width: '100%' }} src={post.thumbnail} alt={post.title} />
                   <Avatar src={post.writer.image} /> 
-                  <Text strong style={{fontSize: '1rem', marginLeft: '0.3rem'}}>{post.writer.username}</Text>
+                  <Text strong style={{ color: 'white', fontSize: '1rem', marginLeft: '0.3rem'}}>{post.writer.username}</Text>
                   <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <Text style={{opacity: '70%'}}>{dayjs(post.createdAt).fromNow()}</Text>
+                      <Text style={{ color: 'white', opacity: '70%'}}>{dayjs(post.createdAt).fromNow()}</Text>
                   </div>
                   <div 
-                    style={{marginTop: '3rem'}}
+                    className="post-content"
+                    style={{ marginTop: '3rem'}}
                     dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
 

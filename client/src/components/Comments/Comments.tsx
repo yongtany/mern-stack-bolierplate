@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
-import { Input, Button } from 'antd';
+import { Typography, Input, Button } from 'antd';
 import { COMMENT_SERVER } from '../Config';
 import SingleComment from './SingleComment';
 import ReplyComment from './ReplyComment';
 
+const { Text } = Typography
 const { TextArea } = Input;
 
 function Comments(props: any) {
@@ -36,7 +37,7 @@ function Comments(props: any) {
 
   return (
     <div>
-      <p> replies</p>
+      <Text style={{ color: 'white'}} strong> replies</Text>
       <hr />
 
       {/* Comment Listss */}

@@ -39,13 +39,13 @@ function SingleComment(props: any) {
         })
   }
 
-  const actions = [<span onClick={openReply} key="comment-basic-reply-to">Reply to </span>,]
+  const actions = [<span style={{ color: 'white'}} onClick={openReply} key="comment-basic-reply-to">답변하기</span>,]
 
   return (
     <div>
       <Comment
         actions={actions}
-        author={props.comment.writer.name}
+        author={<p style={{ fontSize: '1rem', color: 'white'}}>{props.comment.writer.name}</p>}
         avatar={
           <Avatar
             src={props.comment.writer.image}

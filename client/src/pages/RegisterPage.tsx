@@ -5,7 +5,8 @@ import * as Yup from 'yup';
 import { registerUser } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Typography } from 'antd';
+const { Text } = Typography;
 
 const formItemLayout = {
   labelCol: {
@@ -93,13 +94,13 @@ function RegisterPage(props: any) {
         } = props;
         return (
           <div className="app">
-            <h2>Sign up</h2>
+            <h2 style={{ color: 'white' }}>회원가입</h2>
             <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit} >
 
-              <Form.Item required label="Name">
+              <Form.Item required label={<Text style={{ color: 'white'}}>이름</Text>}>
                 <Input
                   id="name"
-                  placeholder="Enter your name"
+                  placeholder="이름을 입력하세요."
                   type="text"
                   value={values.name}
                   onChange={handleChange}
@@ -113,10 +114,10 @@ function RegisterPage(props: any) {
                 )}
               </Form.Item>
 
-              <Form.Item required label="Username">
+              <Form.Item required label={<Text style={{ color: 'white'}}>닉네임</Text>}>
                 <Input
                   id="username"
-                  placeholder="Enter your Username"
+                  placeholder="닉네임을 입력하세요."
                   type="text"
                   value={values.username}
                   onChange={handleChange}
@@ -130,10 +131,10 @@ function RegisterPage(props: any) {
                 )}
               </Form.Item>
 
-              <Form.Item required label="Email" hasFeedback validateStatus={errors.email && touched.email ? "error" : 'success'}>
+              <Form.Item required label={<Text style={{ color: 'white'}}>Email</Text>} hasFeedback validateStatus={errors.email && touched.email ? "error" : 'success'}>
                 <Input
                   id="email"
-                  placeholder="Enter your Email"
+                  placeholder="이메일을 입력하세요."
                   type="email"
                   value={values.email}
                   onChange={handleChange}
@@ -147,10 +148,10 @@ function RegisterPage(props: any) {
                 )}
               </Form.Item>
 
-              <Form.Item required label="Password" hasFeedback validateStatus={errors.password && touched.password ? "error" : 'success'}>
+              <Form.Item required label={<Text style={{ color: 'white'}}>비밀번호</Text>} hasFeedback validateStatus={errors.password && touched.password ? "error" : 'success'}>
                 <Input
                   id="password"
-                  placeholder="Enter your password"
+                  placeholder="비밀번호를 입력하세요."
                   type="password"
                   value={values.password}
                   onChange={handleChange}
@@ -164,10 +165,10 @@ function RegisterPage(props: any) {
                 )}
               </Form.Item>
 
-              <Form.Item required label="Confirm" hasFeedback>
+              <Form.Item required label={<Text style={{ color: 'white'}}>비밀번호 확인</Text>} hasFeedback>
                 <Input
                   id="confirmPassword"
-                  placeholder="Enter your confirmPassword"
+                  placeholder="비밀번호를 확인하세요."
                   type="password"
                   value={values.confirmPassword}
                   onChange={handleChange}
@@ -182,7 +183,7 @@ function RegisterPage(props: any) {
               </Form.Item>
 
               <Form.Item {...tailFormItemLayout}>
-                <Button onClick={() => handleSubmit()} type="primary" disabled={isSubmitting}>
+                <Button style={{backgroundColor: 'grey'}} onClick={() => handleSubmit()} type="primary" disabled={isSubmitting}>
                   Submit
                 </Button>
               </Form.Item>

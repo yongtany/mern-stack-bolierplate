@@ -4,7 +4,7 @@ import { Row, Col, Typography } from 'antd';
 import SidePost from '../components/SidePost/SidePost';
 import GridCard from '../components/GridCard/GridCard';
 import { POST_SERVER } from '../components/Config';
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 function PostListPage() {
 
@@ -25,15 +25,12 @@ function PostListPage() {
       <Row>
       <Col lg={7} xs={24}>
           <div style={{padding: '3rem 2rem 0 0'}}>
-            <Text>Popular posts</Text>
-            <br />
-            <br />
             <SidePost />
           </div>
         </Col>
         <Col lg={17} xs={24}>
           <div className="postPage" style={{ width: '100%', marginTop: '3rem'}}>
-            <Text>Recents posts</Text>
+            <Title style={{ color: 'white' }} level={3}>최신 포스트</Title>
             <br />
             <br />
             <Row gutter={[16, 16]}>

@@ -12,8 +12,9 @@ function GridCard(props: any) {
       <Col lg={8} md={12} xs={24}>
           <Link to={`/post/${props.post._id}`}>
             <Card 
+              bordered={false}
               hoverable
-              style={{ marginBottom: '2rem', width: '100%'}}
+              style={{ backgroundColor: '#1A191F', marginBottom: '2rem', width: '100%'}}
               cover={
                 <div>
                   <img
@@ -23,17 +24,17 @@ function GridCard(props: any) {
                   />
                   <div style={{padding: '1rem 1rem 0 1rem'}}>
                     <Avatar src={props.post.writer.image} /> 
-                    <Text strong style={{fontSize: '0.7rem', marginLeft: '0.3rem'}}>{props.post.writer.username}</Text>
+                    <Text strong style={{ color: 'white', fontSize: '0.7rem', marginLeft: '0.3rem'}}>{props.post.writer.username}</Text>
                   </div>
                 </div>
             }
             >
             <Meta
-              title={props.post.title}
+              title={<Text style={{ color: 'white'}}>{props.post.title}</Text>}
               description={
                 <div>
-                  <Text style={{ opacity: '50%'}}>{dayjs(props.post.createdAt).fromNow()}</Text>
-                  <Text style={{ float: 'right'}}><Icon type="like" key="like" /> 27 Likes </Text>
+                  <Text style={{ color: 'white', opacity: '50%'}}>{dayjs(props.post.createdAt).fromNow()}</Text>
+                  <Text style={{ color: 'white', float: 'right'}}><Icon type="like" key="like" /> 27 Likes </Text>
                 </div>
               }
               />
