@@ -85,7 +85,7 @@ export async function getPostList (req: Request, res: Response) {
 export async function getPopularPosts (req: Request, res: Response) {
   await Post.find()
     .sort({ views: -1 })
-    .limit(3)
+    .limit(5)
     .populate('writer')
     .exec((err, posts) => {
       if(err) return res.json({ success: false, err });

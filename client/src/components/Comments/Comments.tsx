@@ -10,7 +10,6 @@ const { TextArea } = Input;
 function Comments(props: any) {
   const [ Comment, setComment ]: any = useState("");
 
-
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.currentTarget.value)
   }
@@ -30,11 +29,10 @@ function Comments(props: any) {
           setComment("");
           props.refreshFunction(response.data.result)
         } else {
-          alert('Failed to save Comment')
+          alert('Please sign in first')
         }
       })
   }
-
 
   return (
     <div>
@@ -66,4 +64,4 @@ function Comments(props: any) {
   )
 }
 
-export default Comments
+export default Comments;

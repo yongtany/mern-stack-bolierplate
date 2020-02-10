@@ -33,7 +33,6 @@ function PostDetailPage(props: any) {
       .then(response => {
         if (response.data.success) {
           setCommentLists(response.data.comments)
-          console.log(response.data);
         } else {
           alert('Failed to get comments Info')
       }
@@ -48,9 +47,9 @@ function PostDetailPage(props: any) {
     return (
         <>
           <div style={{ width: "100%", height: '20rem', backgroundImage: `url(${post.thumbnail})`}} />
-          <div style={{ maxWidth: '900px', margin: '0 auto'}}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto'}}>
             <Row>
-              <Col lg={18} xs={24}>
+              <Col lg={17} xs={24}>
                 <div className="postPage" style={{ width: '100%', margin: '3rem 0 3rem 0', padding: '3rem', backgroundColor: 'white' }}>
                   <Title level={3}>{post.title}</Title>
                   <br />
@@ -70,7 +69,7 @@ function PostDetailPage(props: any) {
                   refreshFunction={updateComment}
                 />
               </Col>
-              <Col lg={6} xs={24}>
+              <Col lg={7} xs={24}>
                 <div style={{padding: '3rem 1rem'}}>
                   <SidePost />
                 </div>

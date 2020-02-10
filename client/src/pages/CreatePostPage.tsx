@@ -38,7 +38,6 @@ function CreatePostPage(props: any) {
 
     const updateImage = (newImage: any) => {
         setImage(newImage)
-        console.log(newImage);
     }
 
     const handleFiles = (files: any) => {
@@ -75,7 +74,7 @@ function CreatePostPage(props: any) {
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+        <div style={{ maxWidth: '700px', margin: 'auto', padding: '3rem 0 3rem 0' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                 <Title level={2}> Upload Your Post</Title>
             </div>
@@ -121,7 +120,6 @@ function CreatePostPage(props: any) {
                 </Button>
 
             </Form>
-
         </div>
     )
 }
